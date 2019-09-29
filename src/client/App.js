@@ -26,33 +26,36 @@ export default class App extends Component {
 
     this.state = {
       posts: posts,
-      postContent: ""
+      postContent: "",
+      postUserName:""
     };
   }
   // Handles changes within the postContent
   handlePostContentChange = event => {
     this.setState({ postContent: event.target.value });
   };
+  handlePostUserNameChange = event => {
+    this.setState({postUserName: event.target.value});
+  };
   handleSubmit = event => {
     event.preventDefault();
-    if(this.state.postContent.length<1){
-        return;
-    }
+    
     const newPost = {
       id: this.state.posts.length + 1,
       text: this.state.postContent,
       user: {
         avatar: "/uploads/avatar1.png",
-        username: "Fake User"
+        username: this.state.postUserName
       }
     };
     this.setState(prevState => ({
       posts: [newPost, ...prevState.posts],
-      postContent: ""
+      postContent: "",
+      postUserName: '',
     }));
   };
   render() {
-    const { posts, postContent } = this.state;
+    const { posts, postContent, postUserName } = this.state;
 
     return (
       <div className="container">
@@ -66,6 +69,12 @@ export default class App extends Component {
         </Helmet>
         <div className="postForm">
           <form onSubmit={this.handleSubmit}>
+          <textarea
+          value={postUserName}
+          onChange={this.handlePostUserNameChange}
+          placeholder="Write your custom Username!"
+        />
+            
             <textarea
               value={postContent}
               onChange={this.handlePostContentChange}
