@@ -7,6 +7,9 @@ import path from 'path';
 
 const root = path.join(__dirname, '../../');
 
+// Allow Cross-origin resource sharing requests CORS. 
+app.use(cors());
+
 // Enable express Helmet middleware 
 app.use(helmet());
 app.use(helmet.contentSecurityPolicy({
